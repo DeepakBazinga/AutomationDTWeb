@@ -6,8 +6,7 @@ import java.io.FileReader;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Hello world!
@@ -56,15 +55,15 @@ public class CoreConfig
 		    {
     			e.printStackTrace();
 		    }
-    		if(browserName.contains("chrome")){
-    		 DesiredCapabilities caps = DesiredCapabilities.chrome();
-    		 System.setProperty("webdriver.chrome.driver", "/Users/flowerchild/Documents/DTAutomation/drivers/chromedriver");
-    		driver = new ChromeDriver(caps);}
-    		else if(browserName.contains("safari"))
+    		if(browserName.contains("chrome"))
     		{
-    			DesiredCapabilities caps = DesiredCapabilities.firefox();
-    			System.setProperty("webdriver.safari.noinstall", "true");
-       		driver = new SafariDriver(caps);
+    			System.setProperty("webdriver.chrome.driver", "/Users/flowerchild/Documents/DTAutomation/drivers/chromedriver");
+    			driver = new ChromeDriver();
+    		}
+    		else if(browserName.contains("firefox"))
+    		{
+    			System.setProperty("webdriver.gecko.driver", "/Users/flowerchild/Documents/DTAutomation/drivers/geckodriver");
+    			driver = new FirefoxDriver();
     		}
     	}
     	else

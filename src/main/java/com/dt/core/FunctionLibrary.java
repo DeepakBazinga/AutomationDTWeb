@@ -77,4 +77,16 @@ public class FunctionLibrary extends CoreConfig implements LoggingMethods
 				log(null, "verifyTextExistsOnElement Failed for Element :"+locator.toString());
 			}
 	}
+	public void quitWebSession(WebDriver driver)
+	{
+		try{
+				driver.close();
+				log(true,"quitWebSession()");
+			}
+			catch(Exception e )
+			{
+				e.printStackTrace();
+				log(null, "quitWebSession() Failed");
+			}
+	}
 }

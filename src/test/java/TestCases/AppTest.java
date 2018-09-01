@@ -1,6 +1,7 @@
 package TestCases;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -37,5 +38,9 @@ public class AppTest extends FunctionLibrary
 		SKU.labelSKUID.waitUntilElementPresent(driver);
 		SKU.labelSKUID.verifyTextExistsOnElement(driver, "315515");
 	}
-	
+	@AfterTest
+	public void tearDown()
+	{
+		quitWebSession(driver);
+	}
 }
