@@ -11,7 +11,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.Logger;
 
-public interface LoggingMethods {
+public interface LoggingMethods extends TestDataReader {
 	 PatternLayout layout = new PatternLayout();
      String conversionPattern = "%-7p %d %M - %m%n";
      String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
