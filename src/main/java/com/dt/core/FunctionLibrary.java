@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class FunctionLibrary extends CoreConfig implements LoggingMethods
+public class FunctionLibrary extends CoreConfig implements LoggingMethods 
 {
 	WebDriver driver;
 	ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();

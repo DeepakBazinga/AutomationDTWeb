@@ -34,7 +34,7 @@ public class AppTest extends FunctionLibrary
 		auth.wwwLink.waitUntilElementPresent(driver).click(driver, auth.wwwLink.getLocatorValue());
 		auth.oDLogo.waitUntilElementPresent(driver).verifyElementPresent(driver,auth.oDLogo.getLocatorValue());	
 		home.fieldSearchMain.waitUntilElementPresent(driver).verifyElementPresent(driver,home.fieldSearchMain.getLocatorValue());
-		home.fieldSearchMain.clearAndSendKeys(driver, "315515").click(driver,home.buttonSearch.getLocatorValue());
+		home.fieldSearchMain.clearAndSendKeys(driver, getData("SKU.SKU_Normal_SKU1")).click(driver,home.buttonSearch.getLocatorValue());
 		SKU.labelSKUID.waitUntilElementPresent(driver);
 		SKU.labelSKUID.verifyTextExistsOnElement(driver, "315515");
 	}
