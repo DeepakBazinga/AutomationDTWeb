@@ -7,7 +7,7 @@ import java.io.FileReader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.safari.SafariDriver;
 
 /**
  * Hello world!
@@ -20,7 +20,6 @@ public class CoreConfig
 	ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<WebDriver>();
 	private String url;
 	private WebDriver driver;
-	private WebDriverWait wait ;
 	public WebDriver getWebDriver()
 	{
 		return this.driver;
@@ -57,9 +56,16 @@ public class CoreConfig
 		    {
     			e.printStackTrace();
 		    }
+    		if(browserName.contains("chrome")){
     		 DesiredCapabilities caps = DesiredCapabilities.chrome();
     		 System.setProperty("webdriver.chrome.driver", "/Users/flowerchild/Documents/DTAutomation/drivers/chromedriver");
-    		driver = new ChromeDriver(caps);
+    		driver = new ChromeDriver(caps);}
+    		else if(browserName.contains("safari"))
+    		{
+    			DesiredCapabilities caps = DesiredCapabilities.firefox();
+    			System.setProperty("webdriver.safari.noinstall", "true");
+       		driver = new SafariDriver(caps);
+    		}
     	}
     	else
     	{
