@@ -21,7 +21,8 @@ public class CoreConfig
 	private WebDriver driver;
 	public WebDriver getWebDriver()
 	{
-		return this.driver;
+		threadLocalDriver.set(driver);
+		return threadLocalDriver.get();
 	}
     public  WebDriver setConfig()
     {
@@ -70,7 +71,8 @@ public class CoreConfig
     	{
     		
     	}
-    	return driver;
+    	threadLocalDriver.set(driver);
+    	return threadLocalDriver.get();
     }
     public String getURL()
     {

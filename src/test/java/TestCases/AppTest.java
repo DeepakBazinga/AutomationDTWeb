@@ -21,8 +21,7 @@ public class AppTest extends FunctionLibrary
 	public void setup()
 	{
 		FunctionLibrary lib=new FunctionLibrary();
-		driver=lib.startBrowserNormal();
-
+		lib.startBrowserNormal();
 	}
 	@Test
 	public void runTest()
@@ -30,17 +29,18 @@ public class AppTest extends FunctionLibrary
 		AuthorizationPage auth=new AuthorizationPage();
 		HomePage home=new HomePage();
 		SKUDetailPage SKU=new SKUDetailPage();
-		auth.wwwLabel.waitUntilElementPresent(driver).verifyElementPresent(driver,auth.wwwLabel.getLocatorValue());
-		auth.wwwLink.waitUntilElementPresent(driver).click(driver, auth.wwwLink.getLocatorValue());
-		auth.oDLogo.waitUntilElementPresent(driver).verifyElementPresent(driver,auth.oDLogo.getLocatorValue());	
-		home.fieldSearchMain.waitUntilElementPresent(driver).verifyElementPresent(driver,home.fieldSearchMain.getLocatorValue());
-		home.fieldSearchMain.clearAndSendKeys(driver, getData("SKU.SKU_Normal_SKU1")).click(driver,home.buttonSearch.getLocatorValue());
-		SKU.labelSKUID.waitUntilElementPresent(driver);
-		SKU.labelSKUID.verifyTextExistsOnElement(driver, "315515");
+		auth.wwwLabel.waitUntilElementPresent();
+		auth.wwwLink.waitUntilElementPresent().click();
+//		auth.oDLogo.waitUntilElementPresent().verifyElementPresent();	
+//		home.fieldSearchMain.waitUntilElementPresent().verifyElementPresent();
+//		home.fieldSearchMain.clearAndSendKeys(getData("SKU.SKU_Normal_SKU1"));
+//		home.buttonSearch.click();
+//		SKU.labelSKUID.waitUntilElementPresent();
+//		SKU.labelSKUID.verifyTextExistsOnElement("SKU.SKU_Normal_SKU1");
 	}
 	@AfterTest
 	public void tearDown()
 	{
-		quitWebSession(driver);
+		quitWebSession();
 	}
 }
