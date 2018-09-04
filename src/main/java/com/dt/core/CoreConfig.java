@@ -41,7 +41,8 @@ public class CoreConfig
     	if(fileFlag==1)
     	{
     		try {
-    			BufferedReader br = new BufferedReader(new FileReader(configFilePath));
+    			@SuppressWarnings("resource")
+				BufferedReader br = new BufferedReader(new FileReader(configFilePath));
     		    String line;
     		    while ((line=br.readLine()) != null) 
     		    {
