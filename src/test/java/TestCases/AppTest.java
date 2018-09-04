@@ -31,12 +31,11 @@ public class AppTest extends FunctionLibrary
 		SKUDetailPage SKU=new SKUDetailPage();
 		auth.wwwLabel.waitUntilElementPresent();
 		auth.wwwLink.waitUntilElementPresent().click();
-//		auth.oDLogo.waitUntilElementPresent().verifyElementPresent();	
-//		home.fieldSearchMain.waitUntilElementPresent().verifyElementPresent();
-//		home.fieldSearchMain.clearAndSendKeys(getData("SKU.SKU_Normal_SKU1"));
-//		home.buttonSearch.click();
-//		SKU.labelSKUID.waitUntilElementPresent();
-//		SKU.labelSKUID.verifyTextExistsOnElement("SKU.SKU_Normal_SKU1");
+		auth.oDLogo.waitUntilElementPresent().verifyElementPresent();	
+		home.fieldSearchMain.waitUntilElementPresent().verifyElementPresent();
+		home.fieldSearchMain.clearAndSendKeys(getData("SKU.SKU_Normal_SKU1"));
+		home.buttonSearch.waitUntilElementPresent().click();
+		SKU.labelSKUID.waitUntilElementPresent().verifyTextExistsOnElement(getData("SKU.SKU_Normal_SKU1"));
 	}
 	@AfterTest
 	public void tearDown()

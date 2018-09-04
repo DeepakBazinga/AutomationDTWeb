@@ -11,10 +11,15 @@ import com.dt.core.DriverFactory;
 public class AutomationElement extends DriverFactory {
 	String locatorString=new String();
 	String locatoR=new String();
-	String actualLocatorStringXpath;
+	static String actualLocatorStringXpath;
+	static ThreadLocal<WebDriver> intance = new ThreadLocal<WebDriver>();
 	public AutomationElement(String locator)
 	{
 		locatorString=locator;
+	}
+	public AutomationElement()
+	{
+		
 	}
 	public String getLocatorValue()
 	{
@@ -40,22 +45,17 @@ public class AutomationElement extends DriverFactory {
 		return null;
 		}
 	} 
-	private By getElement(String locator)
+	private By getElementXpath(String locator)
 	{
-		if(locatorString.contains("xpath"))
-		{
+		
 			return By.xpath(locator);
-		}
-		else 
-		{
-			return null;
-		}
+		
 	}
 	public AutomationElement waitUntilElementPresent()
 	{
 		try{
 			WebDriverWait waitobj=new WebDriverWait(getDriverIntance(),20);
-			waitobj.until(ExpectedConditions.visibilityOfElementLocated(getElement(getLocatorValue()))); 
+			waitobj.until(ExpectedConditions.visibilityOfElementLocated(getElementXpath(getLocatorValue()))); 
 			log(true,"Wait until Element Present located by :"+getLocatorValue().toString());
 		}
 		catch(Exception e)
@@ -63,12 +63,13 @@ public class AutomationElement extends DriverFactory {
 			e.printStackTrace();
 			log(false,"Wait Failed for elemet located by :"+getLocatorValue().toString());
 		}
-		return new AutomationElement(actualLocatorStringXpath);
+		intance.set(getDriverIntance());
+		return new AutomationElement();
 	}
 	public AutomationElement verifyElementPresent()
 	{
 		try {
-			if(getDriverIntance().findElement(getElement(getLocatorValue())).isDisplayed())
+			if(intance.get().findElement(getElementXpath(actualLocatorStringXpath)).isDisplayed())
 			log(true, "Verify Element :"+getLocatorValue().toString());
 			}
 			catch(Exception e){
@@ -77,20 +78,20 @@ public class AutomationElement extends DriverFactory {
 	}
 	public AutomationElement click()
 	{
-		try{getDriverIntance().findElement(getElement(getLocatorValue())).click();
-		log(true,"Click Element: "+getLocatorValue());}
+		try{intance.get().findElement(getElementXpath(actualLocatorStringXpath)).click();
+		log(true,"Click Element: "+actualLocatorStringXpath);}
 		catch(Exception e )
 		{
 			e.printStackTrace();
-			log(null, "Click Failed for Element :"+getLocatorValue().toString());
+			log(null, "Click Failed for Element :"+actualLocatorStringXpath);
 		}
 		return new AutomationElement(actualLocatorStringXpath);
 	}
 	public AutomationElement clearAndSendKeys(String text)
 	{
 		try{
-			getDriverIntance().findElement(getElement(getLocatorValue())).clear();
-			getDriverIntance().findElement(getElement(getLocatorValue())).sendKeys(text);
+			getDriverIntance().findElement(getElementXpath(getLocatorValue())).clear();
+			getDriverIntance().findElement(getElementXpath(getLocatorValue())).sendKeys(text);
 			log(true,"Clear Element: "+getLocatorValue()+" Send Keys :"+text);}
 			catch(Exception e )
 			{
@@ -103,15 +104,15 @@ public class AutomationElement extends DriverFactory {
 	public AutomationElement verifyTextExistsOnElement(String text)
 	{
 		try{
-			if(getDriverIntance().findElement(getElement(getLocatorValue())).getText().contains(text))
+			if(intance.get().findElement(getElementXpath(actualLocatorStringXpath)).getText().contains(text))
 			log(true,"Verify Text Exists on: "+getLocatorValue()+" Text :"+text);
 			else
-				log(false,"Verify Text Exists on: "+getLocatorValue()+" Text :"+text);	
+				log(false,"Verify Text Exists on: "+actualLocatorStringXpath+" Text :"+text);	
 			}
 			catch(Exception e )
 			{
 				e.printStackTrace();
-				log(null, "verifyTextExistsOnElement Failed for Element :"+getLocatorValue().toString());
+				log(null, "verifyTextExistsOnElement Failed for Element :"+actualLocatorStringXpath);
 			}
 		String locator=getLocatorValue();
 		return new AutomationElement(locator);
