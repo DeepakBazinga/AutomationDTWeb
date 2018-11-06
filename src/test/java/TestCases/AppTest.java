@@ -1,6 +1,5 @@
 package TestCases;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -16,7 +15,6 @@ import PageObjects.SKUDetailPage;
  */
 public class AppTest extends FunctionLibrary 
 {
-	WebDriver driver;
 	@BeforeTest
 	public void setup()
 	{
@@ -32,8 +30,7 @@ public class AppTest extends FunctionLibrary
 		auth.wwwLabel.waitUntilElementPresent();
 		auth.wwwLink.waitUntilElementPresent().click();
 		auth.oDLogo.waitUntilElementPresent().verifyElementPresent();	
-		home.fieldSearchMain.waitUntilElementPresent().verifyElementPresent();
-		home.fieldSearchMain.clearAndSendKeys(getData("SKU.SKU_Normal_SKU1"));
+		home.fieldSearchMain.waitUntilElementPresent().verifyElementPresent().clearAndSendKeys(getData("SKU.SKU_Normal_SKU1"));
 		home.buttonSearch.waitUntilElementPresent().click();
 		SKU.labelSKUID.waitUntilElementPresent().verifyTextExistsOnElement(getData("SKU.SKU_Normal_SKU1"));
 	}

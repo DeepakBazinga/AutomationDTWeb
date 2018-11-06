@@ -11,8 +11,8 @@ import com.dt.core.DriverFactory;
 public class AutomationElement extends DriverFactory {
 	String locatorString=new String();
 	String locatoR=new String();
-	static String actualLocatorStringXpath;
-	static ThreadLocal<WebDriver> intance = new ThreadLocal<WebDriver>();
+	static ThreadLocal<String> actualLocatorStringXpath=new ThreadLocal<String>();
+	static ThreadLocal<WebDriver> instance = new ThreadLocal<WebDriver>();
 	public AutomationElement(String locator)
 	{
 		locatorString=locator;
@@ -31,7 +31,7 @@ public class AutomationElement extends DriverFactory {
 		{
 			locatoR="";
 		}
-		actualLocatorStringXpath=locatoR;
+		actualLocatorStringXpath.set(locatoR);
 		return locatoR;
 	}
 	private WebDriver getDriverIntance()
@@ -63,48 +63,49 @@ public class AutomationElement extends DriverFactory {
 			e.printStackTrace();
 			log(false,"Wait Failed for elemet located by :"+getLocatorValue().toString());
 		}
-		intance.set(getDriverIntance());
-		return new AutomationElement();
+		instance.set(getDriverIntance());
+		return new AutomationElement(actualLocatorStringXpath.get());
 	}
 	public AutomationElement verifyElementPresent()
 	{
 		try {
-			if(intance.get().findElement(getElementXpath(actualLocatorStringXpath)).isDisplayed())
-			log(true, "Verify Element :"+getLocatorValue().toString());
+			if(instance.get().findElement(getElementXpath(actualLocatorStringXpath.get())).isDisplayed())
+			log(true, "Verify Element :"+actualLocatorStringXpath.get());
 			}
 			catch(Exception e){
-				log(false, "Verification Failed for Element :"+getLocatorValue().toString());}	
-		return new AutomationElement(actualLocatorStringXpath);
+				log(false, "Verification Failed for Element :"+actualLocatorStringXpath.get());}	
+		instance.set(getDriverIntance());
+		return new AutomationElement(actualLocatorStringXpath.get());
 	}
 	public AutomationElement click()
 	{
-		try{intance.get().findElement(getElementXpath(actualLocatorStringXpath)).click();
-		log(true,"Click Element: "+actualLocatorStringXpath);}
+		try{instance.get().findElement(getElementXpath(actualLocatorStringXpath.get())).click();
+		log(true,"Click Element: "+actualLocatorStringXpath.get());}
 		catch(Exception e )
 		{
 			e.printStackTrace();
-			log(null, "Click Failed for Element :"+actualLocatorStringXpath);
+			log(null, "Click Failed for Element :"+actualLocatorStringXpath.get());
 		}
-		return new AutomationElement(actualLocatorStringXpath);
+		return new AutomationElement(actualLocatorStringXpath.get());
 	}
 	public AutomationElement clearAndSendKeys(String text)
 	{
 		try{
-			getDriverIntance().findElement(getElementXpath(getLocatorValue())).clear();
-			getDriverIntance().findElement(getElementXpath(getLocatorValue())).sendKeys(text);
-			log(true,"Clear Element: "+getLocatorValue()+" Send Keys :"+text);}
+			instance.get().findElement(getElementXpath(actualLocatorStringXpath.get())).clear();
+			instance.get().findElement(getElementXpath(actualLocatorStringXpath.get())).sendKeys(text);
+			log(true,"Clear Element: "+actualLocatorStringXpath.get()+" Send Keys :"+text);}
 			catch(Exception e )
 			{
 				e.printStackTrace();
-				log(null, "ClearAndSendKeys Failed for Element :"+getLocatorValue().toString());
+				log(null, "ClearAndSendKeys Failed for Element :"+actualLocatorStringXpath.get());
 			}
-		String locator=getLocatorValue();
+		String locator=actualLocatorStringXpath.get();
 		return new AutomationElement(locator);
 	}
 	public AutomationElement verifyTextExistsOnElement(String text)
 	{
 		try{
-			if(intance.get().findElement(getElementXpath(actualLocatorStringXpath)).getText().contains(text))
+			if(instance.get().findElement(getElementXpath(actualLocatorStringXpath.get())).getText().contains(text))
 			log(true,"Verify Text Exists on: "+getLocatorValue()+" Text :"+text);
 			else
 				log(false,"Verify Text Exists on: "+actualLocatorStringXpath+" Text :"+text);	
