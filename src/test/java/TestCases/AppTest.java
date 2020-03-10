@@ -9,7 +9,6 @@ import com.dt.core.FunctionLibrary;
 import PageObjects.AuthorizationPage;
 import PageObjects.HomePage;
 import PageObjects.SKUDetailPage;
-
 /**
  * Unit test for simple App.
  */
@@ -37,6 +36,6 @@ public class AppTest extends FunctionLibrary
 	@AfterTest
 	public void tearDown()
 	{
-		quitWebSession();
+		//quitWebSession();
 	}
 }
