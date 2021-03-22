@@ -24,7 +24,7 @@ public class CoreConfig
 	}
     public void setConfig()
     {
-    	int fileFlag=0;
+    	int fileFlag=0   ;
     	try{
     		File f = new File(configFilePath);
     	
