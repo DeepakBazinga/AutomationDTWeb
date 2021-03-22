@@ -15,7 +15,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class CoreConfig 
 {
 	private String configFilePath="~/Documents/DTAutomation/config/config.rtf";
-	private String browserName;
+	private String browserName     ;
 	private String url;
 	private WebDriver driver;
 	public CoreConfig()
